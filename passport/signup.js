@@ -1,5 +1,11 @@
 var LocalStrategy   = require('passport-local').Strategy;
+var crypto = require('crypto');
+var nodemailer = require('nodemailer');
+
+
 var User = require('../models/user');
+var Token = require('../models/token');
+
 var bCrypt = require('bcrypt-nodejs');
 
 module.exports = function(passport){
@@ -22,9 +28,8 @@ module.exports = function(passport){
                         console.log('User already exists with username: ' + username);
                         return done(null, false, req.flash('message', 'Username already exists'));
                     }
-                });
-
-                User.findOne({email: req.body.email}, function(err, user) {
+                    else {
+                         User.findOne({email: req.body.email}, function(err, user) {
                     email = req.body.email;
 
                     if (err) {
@@ -41,9 +46,11 @@ module.exports = function(passport){
                         // set the user's local credentials
                         newUser.username = username;
                         newUser.password = createHash(password);
-                        newUser.email = req.param('email');
-                        newUser.firstName = req.param('firstName');
-                        newUser.lastName = req.param('lastName');
+                        newUser.email = req.param.email;
+                        newUser.firstName = req.param.firstName;
+                        newUser.lastName = req.param.lastName;
+
+                        console.log('lol'+req.param.firstName);
 
                         // save the user
                         newUser.save(function(err) {
@@ -51,11 +58,47 @@ module.exports = function(passport){
                                 console.log('Error in Saving user: '+err);  
                                 throw err;  
                             }
-                            console.log('User Registration succesful');    
+                           
+                             var token = new Token({ _userId: newUser._id, token: crypto.randomBytes(16).toString('hex') });
+ 
+                            // Save the verification token
+                            token.save(function (err) {
+                                if (err) { return err }
+
+                                        rand=Math.floor((Math.random() * 100) + 54);
+                                    host=req.get('host');
+                                    link="http://"+req.get('host')+"/verify?id="+rand;
+                                                                    console.log('token'+req.body.email);
+                     
+                                // Send the email
+                                var transporter = nodemailer.createTransport({ service: 'Gmail', auth: { user: "doityesari2017@gmail.com",
+                                 pass: 'yesarido2017' } });
+                                                                    console.log('tokenxvdf');
+
+                                var mailOptions = { from: 'doityesari2017@gmail.com', 
+                                to: 'xmastree.1989@gmail.com', 
+                                subject: 'Account Verification Token', 
+                                    html : "Hello,<br> Please Click on the link to verify your email.<br><a href="+link+">Click here to verify</a>" 
+                                    }
+
+                                // text: 'Hello,\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' 
+                                // + req.headers.host + '\/confirmation\/' + token.token };
+                                console.log(mailOptions);
+                                transporter.sendMail(mailOptions, function (err) {
+                                    if (err) { return err; }
+                                   console.log('A verification email has been sent to ');
+                                });
+                            });
+                             console.log('User Registration succesful' + newUser._id);    
                             return done(null, newUser);
+                            
                         });
                     }
                 });
+                    }
+                });
+
+               
 
 
 

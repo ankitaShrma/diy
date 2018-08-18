@@ -1,173 +1,41 @@
-<<<<<<< HEAD
-<html>
-	<head>
-		<title>jsonp test</title>
-		<script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>		
-		
-    </head>
-    <body>
-        <div id="select_div"><a href="#" id="select_link">Test</a></div>  
-
-        Enter UserName: <input type="text" id="txtUserName" />    
-    Password: <input type="password"  />
-    
-    <div id="display" style="width:100px; font-family:Georgia; padding:5px 5px 5px 5px; font-weight:bold; font-size:14px"></div>   
-
-    </body>
-    <script type="text/javascript">
-            // $(function(){    
-            // console.log('lol');           
-            //     $('#select_link').click(function(e){
-            //         e.preventDefault();
-            //         console.log('select_link clicked');
-                    
-            //          /*$.ajax({
-            //             dataType: 'jsonp',
-            //             data: "data=yeah",                      
-            //             jsonp: 'callback',
-            //             url: 'http://localhost:3000/endpoint?callback=?',                       
-            //             success: function(data) {
-            //                 console.log('success');
-            //                 console.log(JSON.stringify(data));
-            //             }
-            //         });*/
-            //         var data = {};
-            //         data.title = "title";
-            //         data.message = "message";
-                    
-            //         $.ajax({
-            //             type: 'POST',
-            //             data: JSON.stringify(data),
-            //             contentType: 'application/json',
-            //             url: 'http://localhost:3000/endpoint',                     
-            //             success: function(data) {
-            //                 console.log('lol');
-            //                 console.log(JSON.stringify(data));
-            //             }
-            //         });
-            //         /*$.ajax('http://localhost:3000/endpoint', {
-            //                 type: 'POST',
-            //                 data: JSON.stringify(data),
-            //                 contentType: 'application/json',
-            //                 success: function() { console.log('success');},
-            //                 error  : function() { console.log('error');}
-            //         });*/
-            //     });             
-            // });
-        </script>
-</html>
-=======
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<head>
+  <title></title>
+<!-- Add this link in your page  -->
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="/stylesheets/bootstrap-tagsinput.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+<body>
+<!--<script src="bootstrap-tagsinput.min.js"></script>-->
+
+<form id="bootstrapTagsInputForm" class="form-horizontal" method="post" action="/tagseg">
+    <div class="form-group">
+        <label class="col-xs-3 control-label">Cities</label>
+        <div class="col-xs-8">
+            <input type="text" name="Name" class="form-control"
+                   value="Hanoi" data-role="tagsinput" style="width: 100%" />
+        </div>
+    </div>
+    <!-- <div class="form-group">
+        <label class="col-xs-3 control-label">Countries</label>
+        <div class="col-xs-8">
+            <input type="text" name="countries" class="form-control"
+                   value="Vietnam" data-role="tagsinput" />
+        </div>
+    </div> -->
+    <div class="form-group">
+        <div class="col-xs-5 col-xs-offset-3">
+            <button type="submit" class="btn btn-default">Validate</button>
+        </div>
+    </div>
+</form></body>
+<script type="text/javascript" src="/javascripts/bootstrap-tagsinput.js">
+  // bootstrap-tagsinput.js file - add in local
 
 
-
-<style>
-/*
-* Style tweaks
-* --------------------------------------------------
-*/
-html,
-body {
-    overflow-x: hidden; /* Prevent scroll on narrow devices */
-}
-body {
-    padding-top: 100px;
-}
-/* Set black background color, white text and some padding */
-    footer {
-      background-color: #000;
-      color: white;
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      height: 80px;
-      width: 100%;
-      overflow:hidden;
-      
-    }
-
-/*
- * Custom styles
- */
-.navbar-brand {
-    font-size: 24px;
-}
-
-.navbar-container {
-    padding: 20px 0 20px 0;
-}
-
-.navbar.navbar-fixed-top.fixed-theme {
-    background-color: #222;
-    border-color: #080808;
-    box-shadow: 0 0 5px rgba(0,0,0,.8);
-}
-
-.navbar-brand.fixed-theme {
-    font-size: 18px;
-}
-
-.navbar-container.fixed-theme {
-    padding: 0;
-}
-
-.navbar-brand.fixed-theme,
-.navbar-container.fixed-theme,
-.navbar.navbar-fixed-top.fixed-theme,
-.navbar-brand,
-.navbar-container{
-    transition: 0.8s;
-    -webkit-transition:  0.8s;
-}
-
-</style>
-
-  </head>
-
-  <body>
- <!-- Fixed navbar -->
-        <nav id="header" class="navbar navbar-fixed-top">
-            <div id="header-container" class="container navbar-container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a id="brand" class="navbar-brand" href="#">Project name</a>
-                </div>
-                <div id="navbar" class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Home</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div><!-- /.nav-collapse -->
-            </div><!-- /.container -->
-        </nav><!-- /.navbar -->
-        <div class="container">
-    
-    <p>Welcome to my world</p>
-
-<div class="container">
-<img src = '/images/arduino.jpg' height='200px' width='200px'>
-<h3>lol</h3>
-</div>
-
-    
-
-  <footer>
-                <p class = "copyright"><br /><br></t>© Asra 2017</p>
-                <p class = "about">
-            </footer>
-            </div>
-  
-  </body>
-</html>
->>>>>>> ec8051100d234fe9175dcd73a88d8192aa153d52
+</script>
+</head>

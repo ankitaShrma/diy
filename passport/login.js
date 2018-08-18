@@ -1,5 +1,7 @@
 var LocalStrategy   = require('passport-local').Strategy;
 var User = require('../models/user');
+var Token = require('../models/token');
+
 var bCrypt = require('bcrypt-nodejs');
 
 module.exports = function(passport){
@@ -24,6 +26,10 @@ module.exports = function(passport){
                         console.log('Invalid Password');
                         return done(null, false, req.flash('message', 'Invalid Password')); // redirect back to login page
                     }
+                     // Make sure the user has been verified
+            if (!user.isVerified) {console.log('not verified');
+            return done(null, false,  req.flash('message', 'Activate')); }
+
                     // User and password both match, return user from done method
                     // which will be treated like success
                     return done(null, user);

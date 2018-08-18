@@ -1,16 +1,23 @@
-var mongoose = require('mongoose');
+var mongoose = require("mongoose");
 
 //path and originalname are the fields stored in mongoDB
 var imageSchema = mongoose.Schema({
-courseCode: String,
-courseName: String,
-year: Number,
-semester: Number,
-department: String,
-uploadtype: String,
-myimage: String,
+  unique_id: Number,
+  name: String,
+  price: Number,
+  quantity: Number,
+  productType: String,
 
-/* path: {
+  description: String,
+  tags: [String],
+  myimage: String,
+
+  postedby: {
+    type: mongoose.Schema.ObjectId,
+    ref: "User"
+  }
+
+  /* path: {
  type: String,
  required: true,
  trim: true
@@ -19,13 +26,10 @@ myimage: String,
  type: String,
  required: true
  }*/
- 
-},{ runSettersOnQuery: true });
- 
- 
-var Material = module.exports = mongoose.model('Material', imageSchema);
- 
- module.exports.getImages = function(callback, limit) {
- 
- Material.find(callback).limit(limit);
-}
+});
+
+var Material = (module.exports = mongoose.model("Material", imageSchema));
+
+module.exports.getImages = function(callback, limit) {
+  Material.find(callback).limit(limit);
+};

@@ -1,69 +1,79 @@
 var express = require('express');
-<<<<<<< HEAD
-=======
 var app = express();
->>>>>>> ec8051100d234fe9175dcd73a88d8192aa153d52
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-<<<<<<< HEAD
+const session = require('express-session');
+
+const MongoDBStore = require('connect-mongodb-session')(session);
+
+
 var passport = require('passport');
+mongoose.Promise = Promise;
+
+const store = new MongoDBStore({
+    uri: 'mongodb://localhost/myapp',
+    collection: 'sessions'
+});
+
 
 var multer = require('multer');
 var fs = require('fs');
+var User = require('./models/user');
+const Material = require('./models/material');
+const Cart = require('./public/javascripts/Cart');
+const Security = require('./public/javascripts/Security');
 
 
 var flash = require('connect-flash');
-var session = require('express-session');
 
 var LocalStrategy = require('passport-local').Strategy;
 
-var users = require('./routes/users');
-var editProfile = require('./routes/editProfile');
-var profilePic = require('./routes/profilePic');
-var materialSave = require('./routes/materialSave');
-
-
 var app = express();
 
-=======
-var session = require('express-session');
-var index = require('./routes/index');
-var users = require('./routes/users');
-var addRegister = require('./routes/addRegister');
-
-var app = express();
-
-mongoose.connect('mongodb://localhost/fellow_profile');
-var db = mongoose.collection;
-
->>>>>>> ec8051100d234fe9175dcd73a88d8192aa153d52
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-<<<<<<< HEAD
-=======
+var editProfile = require('./routes/editProfile');
+var profilePic = require('./routes/profilePic');
+var materialSave = require('./routes/materialSave');
+var confirmation = require('./routes/confirmation');
+var lol = require('./routes/lol');
+var tagseg = require('./routes/tagseg');
+var xhr = require('./routes/xhr');
+
+var users = require('./routes/users');
+
+app.use(flash()); //put this above passport
+
+// mongoose
+mongoose.connect('mongodb://localhost/myapp', function(err){
+  if(err){
+    console.log('Couldn\'t connect. Ensure that mongodb is running on localhost.');
+  }
+});
 
 
-app.use(session({secret: 'ssshhhhh',saveUninitialized: true,resave: true}));
-
-
->>>>>>> ec8051100d234fe9175dcd73a88d8192aa153d52
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+// app.use(favicon());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-<<<<<<< HEAD
 app.use(require('express-session')({
     secret: 'ssshhhhh',
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: true,
+    unset: 'destroy',
+    store: store,
+    name: 'NodeStore' + '-' + Security.generateId(),
+    genid: (req) => {
+        return Security.generateId()
+    }
 }));
 
 /* PASSPORT */
@@ -76,62 +86,50 @@ initPassport(passport);
 app.use('/editProfile', editProfile);
 app.use('/profilePic', profilePic);
 app.use('/materialSave', materialSave);
+app.use('/lol', lol);
+app.post('/confirmation', confirmation);
+app.use('/tagseg', tagseg);
+app.use('/xhr', xhr);
 
 
-app.use(flash());
+// app.use('/confirmation', confirmation);
+
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 var routes = require('./routes/index')(passport);
 app.use('/', routes);
 app.use('/users', users);
-// app.post('/endpoint', function(req, res){
-//   var obj = {};
-//   console.log('body: ' + JSON.stringify(req.body));
-//   res.send(req.body);
-// });
 
-
-// // passport config
-
-
- // passport.use(new LocalStrategy(Account.authenticate()));
-
-
-// //FUNCTION
-// function authenticate(req, username, password, done) {
-
-// 	console.log('authenticate');
-//     User.findOne({  email: req.body.email }, function(err, user) {
-//       if (err) { 
-//       	            console.log('Signup error');
-// return done(err); }
-//       if (!user) {
-//         return done(null, false, { message: 'Incorrect user.' });
-//       }
-//       if (!user.validPassword(password)) {
-//         return done(null, false, { message: 'Incorrect password.' });
-//       }
-//       return done(null, user);
-//     });
-//   }
-
-
-//passport.serializeUser(Account.serializeUser());
-//passport.deserializeUser(Account.deserializeUser());
-
-// mongoose
-mongoose.connect('mongodb://localhost/myapp', function(err){
-	if(err){
-		console.log('Couldn\'t connect. Ensure that mongodb is running on localhost.');
-	}
+app.get('/verify',function(req,res){
+console.log(req.protocol+":/"+req.get('host'));
+if((req.protocol+"://"+req.get('host'))==("http://"+host))
+{
+    console.log("Domain is matched. Information is from Authentic email");
+    if(req.query.id==rand)
+    {
+        console.log("email is verified");
+        User.findByIdAndUpdate({_id:req.params.id},{isVerified:'true'},function(err, docs){
+            if (err) throw err
+            console.log('saved');
+      })
+       
+            
+        //res.end("<h1>Email "+mailOptions.to+" is been Successfully verified");
+    }
+    else
+    {
+        console.log("email is not verified");
+       // res.end("<h1>Bad Request</h1>");
+    }
+}
+else
+{
+   // res.end("<h1>Request is from unknown source");
+}
 });
-=======
-app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
-app.use('/users', users);
-app.use('/addRegister',addRegister);
->>>>>>> ec8051100d234fe9175dcd73a88d8192aa153d52
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -141,14 +139,54 @@ app.use(function(req, res, next) {
 });
 
 // error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+if (app.get('env') === 'development') {
+    app.use(function(err, req, res, next) {
+        res.status(err.status || 500);
+        res.render('error', {
+            message: err.message,
+            error: err
+        });
+    });
+}
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
 
 module.exports = app;
+
+// 'use strict';
+// const nodemailer = require('nodemailer');
+
+// // Generate test SMTP service account from ethereal.email
+// // Only needed if you don't have a real mail account for testing
+// nodemailer.createTestAccount((err, account) => {
+
+//     // create reusable transporter object using the default SMTP transport
+//     let transporter = nodemailer.createTransport({
+//         service:'Gmail', // true for 465, false for other ports
+//         auth: {
+//             user: 'doityesari2017@gmail.com', // generated ethereal user
+//             pass: 'yesarido2017'  // generated ethereal password
+//         }
+//     });
+
+//     // setup email data with unicode symbols
+//     let mailOptions = {
+//         from: 'doityesari2017@gmail.com', // sender address
+//         to: 's.ankita3124@gmail.com', // list of receivers
+//         subject: 'Hello ✔', // Subject line
+//         text: 'Hello world?', // plain text body
+//         html: '<b>Hello world?</b>' // html body
+//     };
+
+//     // send mail with defined transport object
+//     transporter.sendMail(mailOptions, (error, info) => {
+//         if (error) {
+//             return console.log(error);
+//         }
+//         console.log('Message sent: %s', info.messageId);
+//         // Preview only available when sending through an Ethereal account
+//         console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+
+//         // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+//         // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+//     });
+// });

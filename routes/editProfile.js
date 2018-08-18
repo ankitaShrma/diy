@@ -53,7 +53,7 @@ User.findByIdAndUpdate({_id:req.params.id},{
 	contact: req.body.contact,
 	address: req.body.address,
 	town: req.body.town,
-	//myProfile: req.file
+	myProfile: req.files
 	
 }, function(err, docs){
 			 	if(err) throw err;
@@ -63,11 +63,11 @@ User.findByIdAndUpdate({_id:req.params.id},{
 				   res.redirect('/');
 				 }
 			 });
-// var profile= new Profile(req.body);
-// 	profile.save(function(err, doc){
-// 		if (err) throw err
-// 			res.redirect('/')
-// 	});
+var profile= new Profile(req.body);
+	profile.save(function(err, doc){
+		if (err) throw err
+			res.redirect('/')
+	});
 console.log('lolllllll');
 
 })

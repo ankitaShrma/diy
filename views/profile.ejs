@@ -1,34 +1,36 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link rel="stylesheet" href="/stylesheets/style.css">
-  </head>
-  <body>
-    <!--  <% if (!user) { %>
+
+<head>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet" media="screen">
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+
+<body>
+  <!--  <% if (!user) { %>
      
     <a href="/login"> Login</a>
     <br>
     <a href="/register"> Register </a>
     <% } %> 
     <% if (user) { %> -->
-    <p> You are currently logged in as
-      <%= user.username %>
+  <p> You are currently logged in as
+    <%= user.username %>
       <%= user.email %>
-      <%= user.firstname %>
-      <%= user.lastname %> </p>
-    <a href="/signout"> Logout </a>   
-     <% } %>
+        <%= user.firstname %>
+
+          <a href="/signout"> Logout </a>
+          <% } %>
 
 
-    <p>GIVE MORE INFO</p>
 
-    <!-- <form method = "post" action = "/editProfile/edit/<%=user._id %>" enctype="multipart/form-data"> -->
-      <form method = "post" action = "/profilePic/upload" enctype="multipart/form-data">
 
-  <!-- <div class = "form-group-row">
+            <!-- <form method = "post" action = "/editProfile/edit/<%=user._id %>" enctype="multipart/form-data"> -->
+            <!-- <form method = "post" action = "/profilePic/upload" enctype="multipart/form-data"> -->
+
+            <!-- <div class = "form-group-row">
    <input class="form-control" type="hidden" name = "_id" value="<%= user.id %>" id="example-id">
    </div>
 
@@ -75,10 +77,10 @@
 <a class="btn btn-danger" href="/editProfile/delete/<%=user._id %>">Delete</a>
 </form>
  -->
- <div class="file-field input-field">
+            <!-- <div class="file-field input-field">
         <div class="btn grey">
           <span>File</span>
-          <input name="myImage" type="file">
+          <input name="myProfile" type="file">
         </div>
         <div class="file-path-wrapper">
           <input class="file-path validate" type="text">
@@ -88,10 +90,11 @@
     </form>
     <br>
     <img src="<%= typeof file != 'undefined' ? file : '' %>" class="responsive-img">
-  </div>     
+  </div>      -->
 
 
-  </body>
-  <script src="http://code.jquery.com/jquery.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+</body>
+<script src="http://code.jquery.com/jquery.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
 </html>
