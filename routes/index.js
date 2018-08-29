@@ -78,6 +78,10 @@ module.exports = function(passport) {
     // Display the Login page with any flash message, if any
     res.render("login", { message: req.flash("message") });
   });
+  router.get("/pro", function(req, res, next) {
+    // Display the Login page with any flash message, if any
+    res.render("pro", { user: req.user });
+  });
 
   /* Handle Login POST */
   router.post(

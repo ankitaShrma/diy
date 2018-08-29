@@ -7,7 +7,7 @@ var imageSchema = new mongoose.Schema(
     email: String,
     isVerified: {
       type: Boolean,
-      default: true
+      default: false
     },
     firstName: String,
     lastName: String,

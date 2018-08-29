@@ -355,15 +355,14 @@
     <nav class="nav-wrapper clearfix">
         <div class="logo">
             <div class="logo-img">
-                <img src="./images/logo.png" style="height: 37px; width: 100px">
-
+                <a href="/">
+                    <img src="/images/logo.png" style="height: 37px; width: 100px">
+                </a>
             </div>
 
             <ul class="nav-menu">
                 <button class="btn nav-button" onclick="location.href='diyproducts'"> Browse DIY Deals</button>&nbsp;&nbsp;&nbsp;
-                <button class="b
-￼
-ref='material'"> Sell on Yesari</button>&nbsp;&nbsp;&nbsp;
+                <button class="btn nav-button" onclick="location.href='material'"> Sell on Yesari</button>&nbsp;&nbsp;&nbsp;
 
 
             </ul>
@@ -372,38 +371,32 @@ ref='material'"> Sell on Yesari</button>&nbsp;&nbsp;&nbsp;
         </div>
         <div class="nav-menu">
 
-            <ul class="register" ￼ <li>
-                <span class=￼ nclick="location.href='cart'"></span>
-                </a>
+            <ul class="register">
+
+                <li>
+                    <span class="wish-list fas fa-shopping-cart" onclick="location.href='cart'"></span>
+                    </a>
                 </li>
 
-                <% if(!user) { %
-￼
-
+                <% if(!user) { %>
                     <li>
-                        <button 
-￼
-egister</button>
+                        <button onclick="location.href='signup'">Register</button>
                     </li>
                     <li>
-                        <button 
-￼
-gin</button>
+                        <button onclick="location.href='login'">Login</button>
                     </li>
 
 
                     <% }else{ %>
-                    ￼
-
-                    <li>
-                        <button>
-                            <%=user.username%>
-                        </button>
-                    </li>
-                    <li>
-                        <button onclick="location.href='signout'">Logout</button>
-                    </li>
-                    <%}%>
+                        <li>
+                            <button>
+                                <%=user.username%>
+                            </button>
+                        </li>
+                        <li>
+                            <button onclick="location.href='signout'">Logout</button>
+                        </li>
+                        <%}%>
 
 
             </ul>
